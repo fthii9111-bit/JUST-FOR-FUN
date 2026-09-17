@@ -31,11 +31,27 @@
     }
 
     h1 {
-      font-size: 4rem;
-      -webkit-text-stroke: 2px white;
-      text-shadow: 4px 4px 0 #000;
-      letter-spacing: 2px;
+    font-size: 4rem;
+    -webkit-text-stroke: 2px white;
+    text-shadow: 4px 4px 0 #000;
+    letter-spacing: 2px;
+    animation: popIn 0.8s ease-out
     }
+   @keyframes popIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.3) rotate(-10deg);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(1.1) rotate(3deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+   }
+
 
     p {
       font-size: 1.5rem;
