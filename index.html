@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -31,139 +31,74 @@
     }
 
     h1 {
-    font-size: 4rem;
-    -webkit-text-stroke: 2px #1a237e;
-    text-shadow: 4px 4px 0 #000;
-    letter-spacing: 2px;
-    animation: popIn 0.8s ease-out
+      font-size: 4rem;
+      -webkit-text-stroke: 2px #1a237e;
+      text-shadow: 4px 4px 0 #000;
+      letter-spacing: 2px;
+      animation: popIn 0.8s ease-out;
     }
-   @keyframes popIn {
-    0% {
-      opacity: 0;
-      transform: scale(0.3) rotate(-10deg);
-    }
-    60% {
-      opacity: 1;
-      transform: scale(1.1) rotate(3deg);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1) rotate(0deg);
-    }
-   }
 
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(-10deg);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.1) rotate(3deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
 
     p {
       font-family: 'Bangers', cursive;
       font-size: 1.5rem;
       color: #e23636;
       background: white;
-      display: inline-block; 
+      display: inline-block;
       padding: 15px 25px;
       border: 4px solid #1a237e;
       border-radius: 20px;
       box-shadow: 6px 6px 0 #1a237e;
     }
-   
-   h2 {
-  font-size: 2.5rem;
-  color: white;
-  text-shadow: 3px 3px 0 #000;
-  margin-top: 60px;
-  letter-spacing: 2px;
-}
-   
-.panel-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-}
-   .panel {
-  background: white;
-  border: 5px solid #1a237e;
-  border-radius: 8px;
-  box-shadow: 8px 8px 0 #e23636;
-  padding: 20px;
-  width: 250px;
-  text-align: left;
-  transition: transform 0.2s;
-}
-   
-.panel:hover {
-  transform: translateY(-8px);
-}
 
-.panel h3 {
-  color: #1a237e;
-  font-size: 1.8rem;
-  margin-top: 0;
-  letter-spacing: 1px;
-}
+    h2 {
+      font-size: 2.5rem;
+      color: white;
+      text-shadow: 3px 3px 0 #000;
+      margin-top: 60px;
+      letter-spacing: 2px;
+    }
 
-.panel-text {
-  font-family: sans-serif;
-  color: #333;
-  background: none;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-  display: block;
-  font-size: 1rem;
-}
-  </style>
-</head>
-<body>
+    .panel-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
 
-  <video autoplay muted loop id="bg-video">
-    <source src="peter.mp4" type="video/mp4">
-  </video>
+    .panel {
+      background: white;
+      border: 5px solid #1a237e;
+      border-radius: 8px;
+      box-shadow: 8px 8px 0 #e23636;
+      padding: 20px;
+      width: 250px;
+      text-align: left;
+      transition: transform 0.2s;
+    }
 
-  <div class="content">
-    <h1 id="title">Hai, my name is Fathi</h1>
-    <p>And I would like a coffee.</p>
-  </div>
+    .panel:hover {
+      transform: translateY(-8px);
+    }
 
-  <script>
-    const title = document.getElementById('title');
-    title.addEventListener('click', function() {
-      alert('POW! 💥');
-    });
-   #music-btn {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  border: 3px solid #1a237e;
-  background: #e23636;
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-  box-shadow: 4px 4px 0 #1a237e;
-  z-index: 10;
-  transition: transform 0.2s;
-}
-
-#music-btn:hover {
-  transform: scale(1.1) rotate(-5deg);
-}
-
-#music-btn.playing {
-  animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-}
-  </script>
-<audio id="bg-music" loop>
-  <source src="thelyrics.mp3" type="audio/mpeg">
-</audio>
-
-<button id="music-btn">🕸️</button>
-</body>
-</html>
+    .panel h3 {
+      color: #1a237e;
+      font-size: 1.8rem;
+      margin-top: 0;
+      letter-spacing: 1px;
+    }
