@@ -130,10 +130,40 @@
     title.addEventListener('click', function() {
       alert('POW! 💥');
     });
-  </script>
+   #music-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 3px solid #1a237e;
+  background: #e23636;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #1a237e;
+  z-index: 10;
+  transition: transform 0.2s;
+}
 
- <audio controls loop>
+#music-btn:hover {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+#music-btn.playing {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+  </script>
+<audio id="bg-music" loop>
   <source src="thelyrics.mp3" type="audio/mpeg">
 </audio>
+
+<button id="music-btn">🕸️</button>
 </body>
 </html>
