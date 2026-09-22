@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fthggg</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Bangers', cursive;
+      color: #e23636;
+      text-align: center;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      padding-top: 60px;
+    }
+
+    h1 {
+      font-size: 4rem;
+      -webkit-text-stroke: 2px #1a237e;
+      text-shadow: 4px 4px 0 #000;
+      letter-spacing: 2px;
+      animation: popIn 0.8s ease-out;
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(-10deg);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.1) rotate(3deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    p {
+      font-family: 'Bangers', cursive;
+      font-size: 1.5rem;
+      color: #e23636;
+      background: white;
+      display: inline-block;
+      padding: 15px 25px;
+      border: 4px solid #1a237e;
+      border-radius: 20px;
+      box-shadow: 6px 6px 0 #1a237e;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      color: white;
+      text-shadow: 3px 3px 0 #000;
+      margin-top: 60px;
+      letter-spacing: 2px;
+    }
+
+    .panel-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .panel {
+      background: white;
+      border: 5px solid #1a237e;
+      border-radius: 8px;
+      box-shadow: 8px 8px 0 #e23636;
+      padding: 20px;
+      width: 250px;
+      text-align: left;
+      transition: transform 0.2s;
+    }
+
+    a.panel {
+      display: block;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .panel:hover {
+      transform: translateY(-8px);
+    }
+
+    .panel h3 {
+      color: #1a237e;
+      font-size: 1.8rem;
+      margin-top: 0;
+      letter-spacing: 1px;
+    }
+
+    .panel-text {
+      font-family: sans-serif;
+      color: #333;
+      background: none;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      display: block;
+      font-size: 1rem;
+    }
+
+    .panel-img {
+      width: 100%;
+      border-radius: 6px;
+      border: 3px solid #1a237e;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .panel-label {
+      font-family: sans-serif;
+      font-weight: bold;
+      color: #1a237e;
+      font-size: 0.85rem;
+      margin: 10px 0 2px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: none;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      display: block;
+    }
+
+    #music-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      border: 3px solid #1a237e;
+      background: #e23636;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 #1a237e;
+      z-index: 10;
+      transition: transform 0.2s;
+    }
+
+    #music-btn:hover {
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    #music-btn.playing {
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+  </style>
+</head>
+<body>
+
+  <video autoplay muted loop id="bg-video">
+    <source src="peter.mp4" type="video/mp4">
+  </video>
+
+  <div class="content">
+    <h1 id="title">Hai, my name is Fathi</h1>
+    <p>And I would like a coffee.</p>
+
+    <h2>MY PROJECTS</h2>
+    <div class="panel-grid">
+
+      <a href="project1.html" class="panel">
+        <h3>Project One</h3>
+        <img src="project1-demo.gif" alt="Demo Project One" class="panel-img">
+        <p class="panel-text">Deskripsi singkat project kamu di sini.</p>
+        <p class="panel-label">Tantangan</p>
+        <p class="panel-text">Tulis di sini kesulitan utama saat bikin project ini.</p>
+        <p class="panel-label">Yang dipelajari</p>
+        <p class="panel-text">Tulis di sini skill/konsep baru yang kamu dapat.</p>
+      </a>
+
+      <div class="panel">
+        <h3>Project Two</h3>
+        <p class="panel-text">Deskripsi singkat project kamu di sini.</p>
+      </div>
+
+      <div class="panel">
+        <h3>Project Three</h3>
+        <p class="panel-text">Deskripsi singkat project kamu di sini.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <audio id="bg-music" loop>
+    <source src="thelyrics.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="music-btn">🕸️</button>
+
+  <script>
+    const title = document.getElementById('title');
+    title.addEventListener('click', function() {
+      alert('POW! 💥');
+    });
+
+    const music = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+    let isPlaying = false;
+
+    musicBtn.addEventListener('click', function() {
+      if (isPlaying) {
+        music.pause();
+        musicBtn.classList.remove('playing');
+      } else {
+        music.play();
+        musicBtn.classList.add('playing');
+      }
+      isPlaying = !isPlaying;
+    });
+  </script>
+
+</body>
+</html>
