@@ -96,6 +96,35 @@
       text-decoration: none;
       margin: 5px 8px 5px 0;
     }
+    #music-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 3px solid #1a237e;
+  background: #e23636;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #1a237e;
+  z-index: 10;
+  transition: transform 0.2s;
+}
+
+#music-btn:hover {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+#music-btn.playing {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
   </style>
 </head>
 <body>
@@ -131,6 +160,50 @@
       <a href="https://github.com/fthii9111-bit/JUST-FOR-FUN" target="_blank">Source Code</a>
     </div>
   </div>
+<audio id="bg-music" loop>
+  <source src="thelyrics.mp3" type="audio/mpeg">
+</audio>
 
+<button id="music-btn">🕸️</button>
+
+<script>
+  const music = document.getElementById('bg-music');
+  const musicBtn = document.getElementById('music-btn');
+  let isPlaying = false;
+
+  function saveMusicState() {
+    localStorage.setItem('musicPlaying', isPlaying ? '1' : '0');
+    localStorage.setItem('musicTime', music.currentTime);
+  }
+
+  const savedPlaying = localStorage.getItem('musicPlaying') === '1';
+  const savedTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+  music.currentTime = savedTime;
+
+  if (savedPlaying) {
+    music.play().then(function() {
+      isPlaying = true;
+      musicBtn.classList.add('playing');
+    }).catch(function() {
+      isPlaying = false;
+      musicBtn.classList.remove('playing');
+    });
+  }
+
+  musicBtn.addEventListener('click', function() {
+    if (isPlaying) {
+      music.pause();
+      musicBtn.classList.remove('playing');
+    } else {
+      music.play();
+      musicBtn.classList.add('playing');
+    }
+    isPlaying = !isPlaying;
+    saveMusicState();
+  });
+
+  music.addEventListener('timeupdate', saveMusicState);
+  window.addEventListener('pagehide', saveMusicState);
+</script>
 </body>
 </html>
