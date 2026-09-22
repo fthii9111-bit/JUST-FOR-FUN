@@ -213,24 +213,49 @@
 
   <script>
     const title = document.getElementById('title');
+  if (title) {
     title.addEventListener('click', function() {
       alert('POW! 💥');
     });
+  }
 
-    const music = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-btn');
-    let isPlaying = false;
+  const music = document.getElementById('bg-music');
+  const musicBtn = document.getElementById('music-btn');
+  let isPlaying = false;
 
-    musicBtn.addEventListener('click', function() {
-      if (isPlaying) {
-        music.pause();
-        musicBtn.classList.remove('playing');
-      } else {
-        music.play();
-        musicBtn.classList.add('playing');
-      }
-      isPlaying = !isPlaying;
+  function saveMusicState() {
+    localStorage.setItem('musicPlaying', isPlaying ? '1' : '0');
+    localStorage.setItem('musicTime', music.currentTime);
+  }
+
+  const savedPlaying = localStorage.getItem('musicPlaying') === '1';
+  const savedTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+  music.currentTime = savedTime;
+
+  if (savedPlaying) {
+    music.play().then(function() {
+      isPlaying = true;
+      musicBtn.classList.add('playing');
+    }).catch(function() {
+      isPlaying = false;
+      musicBtn.classList.remove('playing');
     });
+  }
+
+  musicBtn.addEventListener('click', function() {
+    if (isPlaying) {
+      music.pause();
+      musicBtn.classList.remove('playing');
+    } else {
+      music.play();
+      musicBtn.classList.add('playing');
+    }
+    isPlaying = !isPlaying;
+    saveMusicState();
+  });
+
+  music.addEventListener('timeupdate', saveMusicState);
+  window.addEventListener('pagehide', saveMusicState);
   </script>
 
 </body>
