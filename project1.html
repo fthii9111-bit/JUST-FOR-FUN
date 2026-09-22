@@ -288,6 +288,16 @@
 
   music.addEventListener('timeupdate', saveMusicState);
   window.addEventListener('pagehide', saveMusicState);
+  
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(function(section) {
+    section.addEventListener('click', function() {
+      section.classList.remove('clicked');
+      void section.offsetWidth;
+      section.classList.add('clicked');
+    });
+  });
+</script>
 </script>
 </body>
 </html>
