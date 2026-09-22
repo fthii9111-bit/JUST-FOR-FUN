@@ -172,6 +172,35 @@
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.08); }
     }
+    function playClickSound() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(600, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.15);
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.15);
+  }
+
+  const panels = document.querySelectorAll('.panel');
+  panels.forEach(function(panel) {
+    panel.addEventListener('click', function(e) {
+      playClickSound();
+      // Kalau panel-nya link (Project One), tunda pindah halaman dikit biar suara sempat kedengeran
+      if (panel.tagName === 'A') {
+        e.preventDefault();
+        const target = panel.getAttribute('href');
+        setTimeout(function() {
+          window.location.href = target;
+        }, 150);
+      }
+    });
+  });
   </style>
 </head>
 <body>
