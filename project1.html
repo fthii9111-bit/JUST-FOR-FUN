@@ -179,7 +179,11 @@
   </style>
 </head>
 <body>
-  <div class="mini-spider">
+ <svg id="thread-svg" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:18; pointer-events:none;">
+  <line id="thread-line" x1="0" y1="0" x2="0" y2="0" stroke="white" stroke-width="1" opacity="0.55" />
+</svg>
+
+<div class="mini-spider" id="mini-spider">
   <svg viewBox="0 0 60 60" width="34" height="34" xmlns="http://www.w3.org/2000/svg">
     <g stroke="#1a237e" stroke-width="2.5" fill="none" stroke-linecap="round">
       <line x1="30" y1="24" x2="10" y2="10" />
@@ -297,7 +301,32 @@
       section.classList.add('clicked');
     });
   });
-</script>
+   (function() {
+    const spiderEl = document.getElementById('mini-spider');
+    const threadLine = document.getElementById('thread-line');
+    let anchorX = null;
+    let anchorY = null;
+
+    function updateThread() {
+      const rect = spiderEl.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+
+      if (anchorX === null) {
+        anchorX = cx;
+        anchorY = 0;
+      }
+
+      threadLine.setAttribute('x1', anchorX);
+      threadLine.setAttribute('y1', anchorY);
+      threadLine.setAttribute('x2', cx);
+      threadLine.setAttribute('y2', cy);
+
+      requestAnimationFrame(updateThread);
+    }
+
+    requestAnimationFrame(updateThread);
+  })();
 </script>
 </body>
 </html>
