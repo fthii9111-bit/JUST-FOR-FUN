@@ -323,6 +323,7 @@
   </div>
 
   <!-- Layar HP: postingan gaya Instagram (ganti isinya sesuai keinginan) -->
+<button id="music-btn">🕸️</button>
   <main class="phone-content" id="phone-content">
     <article class="post">
       <div class="post-header">
@@ -613,6 +614,30 @@
     // Kalau musik lagi nyala di halaman sebelumnya, langsung mulai lagu project 3
     if (localStorage.getItem('musicPlaying') === '1') start();
   })();
+    #music-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 3px solid #1a237e;
+  background: #e23636;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #1a237e;
+  z-index: 150;
+  transition: transform 0.2s;
+}
+
+#music-btn:hover { transform: scale(1.1) rotate(-5deg); }
+#music-btn.playing { animation: pulse 1s infinite; }
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
 </script>
 
 </body>
