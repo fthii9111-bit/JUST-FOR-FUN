@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Three - Fthggg</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #000;
+      font-family: 'Bangers', cursive;
+    }
+
+    .back-link {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 200;
+      font-family: sans-serif;
+      font-size: 0.95rem;
+      color: white;
+      background: #e23636;
+      padding: 8px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      border: 3px solid #1a237e;
+      box-shadow: 3px 3px 0 #000;
+    }
+
+    /* ===== Layar HP (isinya nanti) ===== */
+    .phone-content {
+      min-height: 100vh;
+      background: #000;
+      color: white;
+    }
+
+    /* ===== Intro zoom ke HP ===== */
+    .zoom-intro {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: #000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.7s ease;
+    }
+
+    .zoom-intro.done {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .zoom-stage {
+      width: min(100vw, calc(100vh * 0.7991));
+      aspect-ratio: 736 / 921;
+      will-change: transform;
+    }
+
+    .zoom-stage img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back-link">&larr; Kembali ke Home</a>
+
+  <div class="zoom-intro" id="zoom-intro">
+    <div class="zoom-stage" id="zoom-stage">
+      <img src="project3-scene.jpg" alt="" id="zoom-img">
+    </div>
+  </div>
+
+  <!-- Isi layar HP taruh di sini nanti -->
+  <main class="phone-content" id="phone-content"></main>
+
+  <script>
+    // ===== Zoom in ke HP =====
+    (function() {
+      const intro = document.getElementById('zoom-intro');
+      const stage = document.getElementById('zoom-stage');
+      const img = document.getElementById('zoom-img');
+
+      // Posisi HP di dalam gambar (0 - 1). Geser kalau kurang pas.
+      const PHONE_X = 0.312;  // 0 = kiri, 1 = kanan
+      const PHONE_Y = 0.397;  // 0 = atas, 1 = bawah
+      const ZOOM = 10;        // makin besar makin dalam
+      const DURASI = 2200;    // ms
+      const DELAY = 1200;     // jeda sebelum mulai zoom
+
+      function finish() {
+        intro.classList.add('done');
+        setTimeout(function() { intro.style.display = 'none'; }, 800);
+      }
+
+      // Kalau gambar nggak ada / user pilih kurangi animasi, langsung skip
+      img.addEventListener('error', function() { intro.style.display = 'none'; });
+      if (img.complete && img.naturalWidth === 0) { intro.style.display = 'none'; return; }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        intro.style.display = 'none';
+        return;
+      }
+
+      let started = false;
+      function play() {
+        if (started) { finish(); return; }   // klik lagi = skip
+        started = true;
+
+        const r = stage.getBoundingClientRect();
+        const px = r.left + r.width * PHONE_X;
+        const py = r.top + r.height * PHONE_Y;
+        const dx = window.innerWidth / 2 - px;
+        const dy = window.innerHeight / 2 - py;
+
+        stage.style.transformOrigin = (PHONE_X * 100) + '% ' + (PHONE_Y * 100) + '%';
+        stage.style.transition = 'transform ' + DURASI + 'ms cubic-bezier(0.65, 0, 0.35, 1)';
+        stage.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(' + ZOOM + ')';
+
+        setTimeout(finish, DURASI - 200);
+      }
+
+      setTimeout(play, DELAY);
+      intro.addEventListener('click', play);
+    })();
+  </script>
+
+</body>
+</html>
