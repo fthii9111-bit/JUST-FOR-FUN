@@ -294,7 +294,12 @@
   </style>
 </head>
 <body>
+<audio id="bg-music" loop>
+  <source src="project2-song.mp3" type="audio/mpeg">
+</audio>
 
+<button id="music-btn">🕸️</button>
+  
   <div class="bg-fallback"></div>
   <div class="bg-layer" id="bg-layer-a"></div>
   <div class="bg-layer" id="bg-layer-b"></div>
@@ -588,7 +593,62 @@
       90%  { transform: translate(-20px, 60px) rotate(5deg); }
       100% { transform: translate(0, 0) rotate(0deg); }
     }
-  </style>
+    #music-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 3px solid white;
+  background: #e23636;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
+  z-index: 150;
+  transition: transform 0.2s;
+}
 
+#music-btn:hover { transform: scale(1.1) rotate(-5deg); }
+#music-btn.playing { animation: pulse 1s infinite; }
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+  </style>
+<script>
+  (function() {
+    const music = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+    let isPlaying = false;
+
+    function setPlaying(on) {
+      isPlaying = on;
+      musicBtn.classList.toggle('playing', on);
+      localStorage.setItem('musicPlaying', on ? '1' : '0');
+    }
+
+    function start() {
+      const p = music.play();
+      if (p && p.then) {
+        p.then(function() { setPlaying(true); })
+         .catch(function() { isPlaying = false; musicBtn.classList.remove('playing'); });
+      }
+    }
+
+    musicBtn.addEventListener('click', function() {
+      if (isPlaying) {
+        music.pause();
+        setPlaying(false);
+      } else {
+        start();
+      }
+    });
+
+    if (localStorage.getItem('musicPlaying') === '1') start();
+  })();
+</script>
 </body>
 </html>
